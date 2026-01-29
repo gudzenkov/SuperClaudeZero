@@ -5,8 +5,6 @@ argument-hint: <project idea or goal>
 user-invocable: true
 allowed-tools:
   - Read
-  - Write
-  - Grep
   - Glob
   - Task
   - AskUserQuestion
@@ -27,6 +25,39 @@ Orchestrate the full development lifecycle by:
 - Coordinating agents through the workflow
 - Consulting user at key decision points
 - Ensuring artifacts flow between phases
+
+**CRITICAL**: The orchestrator NEVER edits files or runs bash directly. All implementation work is delegated to subagents via the Task tool.
+
+## Context Discipline
+
+**CRITICAL for orchestration quality**: Lean context = clear signal.
+
+### What to Read (High-Level Only)
+- `docs/objectives/ROADMAP.md` - milestone/phase overview
+- `docs/development/BACKLOG.md` - task table only (not full details)
+- `docs/architecture/PRD.md` - requirements summary
+- Agent results - summary output from Task tool
+
+### What to NEVER Read Directly
+- Source code files
+- Full file contents
+- Detailed implementations
+- Test files
+- Logs
+
+### Why This Matters
+Cluttered context causes:
+- Missed decision points
+- Wrong workflow depth selection
+- Failure to catch blockers
+- Lost orchestration thread
+
+**Rule**: If you need details, spawn an agent to analyze and summarize.
+
+### Context Budget
+- Keep orchestrator turns focused on: assess → delegate → checkpoint → proceed
+- Each phase transition: brief status, next action
+- Avoid: debugging, code review, detailed analysis (delegate these)
 
 ## Inputs
 
@@ -140,8 +171,7 @@ Task(subagent_type="project-manager", prompt="Create implementation plan for: ..
 Task(subagent_type="developer", prompt="Implement task T-001: ...")
 ```
 
-**Option B - Direct Skill Invocation**:
-If working inline, follow skill workflows directly.
+**IMPORTANT**: Always use Option A. The orchestrator coordinates; subagents execute.
 
 ### 4. Checkpoint Between Phases
 After each major phase:
@@ -219,10 +249,27 @@ Orchestrator: PRD complete. Proceeding to /plan.
 ...
 ```
 
+## Parallel Execution
+
+When tasks are independent, spawn multiple agents in a single message:
+- Multiple implementation tasks → parallel developer agents
+- Multiple validation tasks → parallel validator agents
+- Independent research → parallel explore agents
+
+Example:
+```
+Task(subagent_type="developer", prompt="Implement T-001...")
+Task(subagent_type="developer", prompt="Implement T-002...")
+Task(subagent_type="developer", prompt="Implement T-003...")
+```
+
+All three run concurrently, results collected together.
+
 ## Validation Checklist
 - [ ] Workflow depth matches complexity
 - [ ] User confirmed workflow selection
 - [ ] Each phase produced expected artifacts
 - [ ] Artifacts flow correctly between phases
 - [ ] Decision points consulted user appropriately
+- [ ] Context stayed lean (no code/detail clutter)
 - [ ] Blockers documented if any
