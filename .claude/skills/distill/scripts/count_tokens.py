@@ -25,8 +25,8 @@ def count_tokens(file_path: str) -> int:
             messages=[{"role": "user", "content": content}]
         )
         return response.input_tokens
-    except anthropic.AuthenticationError as e:
-        logger.warning(f"ANTHROPIC_API_KEY not set or invalid")
+    except anthropic.AuthenticationError:
+        logger.warning("ANTHROPIC_API_KEY not set or invalid")
     except anthropic.APIError as e:
         logger.warning(f"API error ({e.status_code}): {e.message}")
     except Exception as e:

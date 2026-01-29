@@ -5,7 +5,6 @@
 source "$(dirname "$0")/lib/hook-utils.sh"
 
 # Parse Setup-specific fields
-HOOK_EVENT=$(echo "$HOOK_INPUT" | jq -r '.hook_event_name // empty')
 TRIGGER=$(echo "$HOOK_INPUT" | jq -r '.trigger // empty')  # "init" or "maintenance"
 SESSION_ID=$(echo "$HOOK_INPUT" | jq -r '.session_id // empty')
 CWD=$(echo "$HOOK_INPUT" | jq -r '.cwd // empty')

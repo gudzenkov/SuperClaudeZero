@@ -73,6 +73,7 @@ parse_session_end() {
 parse_setup() {
     parse_common
     TRIGGER=$(echo "$HOOK_INPUT" | jq -r '.trigger // empty')
+    export TRIGGER
 }
 
 # =============================================================================
@@ -112,7 +113,8 @@ read_agent_start() {
     local agent_start_file="${AGENT_LOG_DIR}/agent-start.jsonl"
     if [ -f "$agent_start_file" ]; then
         # Read first line of JSONL
-        local first_line=$(head -1 "$agent_start_file")
+        local first_line
+        first_line=$(head -1 "$agent_start_file")
         AGENT_TYPE=$(echo "$first_line" | jq -r '.agent_type // "unknown"')
         AGENT_START_TIME=$(echo "$first_line" | jq -r '.timestamp // "unknown"')
     else
@@ -128,7 +130,8 @@ read_agent_start() {
 # Session events use JSONL (append) to preserve history across resumes
 write_session_start_jsonl() {
     ensure_session_dir
-    local ts=$(date -Iseconds)
+    local ts
+    ts=$(date -Iseconds)
     # Append as single-line JSON to JSONL file
     jq -c -n \
         --arg event "SessionStart" \
@@ -149,7 +152,8 @@ write_session_start_jsonl() {
 
 write_agent_start_jsonl() {
     ensure_agent_dir
-    local ts=$(date -Iseconds)
+    local ts
+    ts=$(date -Iseconds)
     # Append as single-line JSON to JSONL file
     jq -c -n \
         --arg event "SubagentStart" \
@@ -168,7 +172,8 @@ write_agent_start_jsonl() {
 # Agent stop uses JSONL to capture both stop events (validation + reflexion)
 write_agent_stop_jsonl() {
     read_agent_start
-    local ts=$(date -Iseconds)
+    local ts
+    ts=$(date -Iseconds)
     # Append as single-line JSON to JSONL file
     jq -c -n \
         --arg event "SubagentStop" \
@@ -189,7 +194,8 @@ write_agent_stop_jsonl() {
 }
 
 write_session_end_jsonl() {
-    local ts=$(date -Iseconds)
+    local ts
+    ts=$(date -Iseconds)
     local agent_count=0
     if [ -d "$SESSION_LOG_DIR" ]; then
         agent_count=$(find "$SESSION_LOG_DIR" -maxdepth 1 -type d 2>/dev/null | wc -l)

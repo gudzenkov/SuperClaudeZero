@@ -57,4 +57,3 @@
 - **Automated Enforcement**: Use tooling for consistent quality
 - **Preventive Measures**: Catch issues early when cheaper to fix
 - **Human-Centered Design**: Prioritize user welfare and autonomy
-

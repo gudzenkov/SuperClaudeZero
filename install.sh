@@ -84,7 +84,8 @@ log_error() {
 # Create backup directory
 create_backup_dir() {
     local target="$1"
-    local backup_dir="${target}/backups/$(date +%Y-%m-%d_%H-%M-%S)"
+    local backup_dir
+    backup_dir="${target}/backups/$(date +%Y-%m-%d_%H-%M-%S)"
     mkdir -p "$backup_dir"
     echo "$backup_dir"
 }
@@ -197,7 +198,7 @@ copy_directory() {
     mkdir -p "$target_dir"
 
     find "$source_dir" -type f | while read -r file; do
-        local rel_path="${file#$source_dir/}"
+        local rel_path="${file#"$source_dir"/}"
         local target_file="${target_dir}/${rel_path}"
         local backup_rel_path="${component_name}/${rel_path}"
         local ext="${file##*.}"
@@ -399,8 +400,8 @@ cleanup_global() {
     # Remove installed directories
     local dirs_to_remove=("agents" "skills" "hooks" "policy" "workflows" "templates")
     for dir in "${dirs_to_remove[@]}"; do
-        if [ -d "${target}/${dir}" ]; then
-            rm -rf "${target}/${dir}"
+        if [ -d "${target:?}/${dir}" ]; then
+            rm -rf "${target:?}/${dir}"
             log_success "Removed: ${target}/${dir}"
             ((++CREATED))
         fi
@@ -430,8 +431,8 @@ cleanup_project() {
     # Remove installed directories
     local dirs_to_remove=(".claude" ".serena" "docs/knowledge" "reports/analysis" "reports/research")
     for dir in "${dirs_to_remove[@]}"; do
-        if [ -d "${target}/${dir}" ]; then
-            rm -rf "${target}/${dir}"
+        if [ -d "${target:?}/${dir}" ]; then
+            rm -rf "${target:?}/${dir}"
             log_success "Removed: ${target}/${dir}"
             ((++CREATED))
         fi

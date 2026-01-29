@@ -22,10 +22,10 @@ import logging
 import asyncio
 from pathlib import Path
 
+from claude_agent_sdk import ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, ResultMessage, TextBlock
+
 logging.basicConfig(level=logging.WARNING, format='%(levelname)s: %(message)s')
 logger = logging.getLogger(__name__)
-
-from claude_agent_sdk import ClaudeSDKClient, ClaudeAgentOptions, AssistantMessage, ResultMessage, TextBlock
 
 
 SYSTEM_PROMPT = """You are a content analysis expert specializing in information density and distillation.
