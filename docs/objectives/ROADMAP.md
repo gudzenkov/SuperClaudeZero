@@ -29,84 +29,84 @@ Core orchestration with file-based memory and MD workflow templates.
 ### Epic: Hook System
 **Depends on**: None
 
-- [ ] `inject-context.sh` (SessionStart)
-- [ ] `remind-validate.sh` (SubagentStop)
-- [ ] `remind-reflexion.sh` (SubagentStop)
-- [ ] `remind-reflect.sh` (Stop)
-- [ ] `checkpoint-session.sh` (SessionEnd)
+- [x] `inject-context.sh` (SessionStart)
+- [x] `remind-validate.sh` (SubagentStop)
+- [x] `remind-reflexion.sh` (SubagentStop)
+- [x] `remind-reflect.sh` (Stop)
+- [x] `checkpoint-session.sh` (SessionEnd)
 
 ### Epic: Core Agents
 **Depends on**: Hook System
 
-- [ ] `business-analyst.md`
-- [ ] `architect.md`
-- [ ] `project-manager.md`
-- [ ] `developer.md`
+- [x] `business-analyst.md`
+- [x] `architect.md`
+- [x] `project-manager.md`
+- [x] `developer.md`
 
 ### Epic: Support Agents
 **Depends on**: Hook System
 
-- [ ] `validator.md`
-- [ ] `deployer.md`
-- [ ] `tech-writer.md`
+- [x] `validator.md`
+- [x] `deployer.md`
+- [x] `tech-writer.md`
 
 ### Epic: Agent-Backed Skills
 **Depends on**: Core Agents, Support Agents
 
-- [ ] `spec/SKILL.md`
-- [ ] `design/SKILL.md`
-- [ ] `plan/SKILL.md`
-- [ ] `implement/SKILL.md`
-- [ ] `validate/SKILL.md`
-- [ ] `deploy/SKILL.md`
-- [ ] `document/SKILL.md`
+- [x] `spec/SKILL.md`
+- [x] `design/SKILL.md`
+- [x] `plan/SKILL.md`
+- [x] `implement/SKILL.md`
+- [x] `validate/SKILL.md`
+- [x] `deploy/SKILL.md`
+- [x] `document/SKILL.md`
 
 ### Epic: Utility Skills
 **Depends on**: None
 
-- [ ] `reflexion/SKILL.md`
-- [ ] `reflect/SKILL.md`
-- [ ] `optimize/SKILL.md`
-- [ ] `analyse/SKILL.md`
-- [ ] `research/SKILL.md`
-- [ ] `distill/SKILL.md`
+- [x] `reflexion/SKILL.md`
+- [x] `reflect/SKILL.md`
+- [x] `optimize/SKILL.md`
+- [x] `analyse/SKILL.md`
+- [x] `research/SKILL.md`
+- [x] `distill/SKILL.md`
 
 ### Epic: Orchestration
 **Depends on**: Agent-Backed Skills
 
-- [ ] `orchestrate/SKILL.md`
+- [x] `orchestrate/SKILL.md`
 
 ### Epic: Policy
 **Depends on**: None
 
-- [ ] `RULES.md`
-- [ ] `PRINCIPLES.md`
+- [x] `RULES.md`
+- [x] `PRINCIPLES.md`
 
 ### Epic: Workflows
 **Depends on**: None
 
-- [ ] `SWE.md`
-- [ ] `meta-learning.md`
+- [x] `SWE.md`
+- [x] `meta-learning.md`
 
 ### Epic: Templates
 **Depends on**: None
 
-- [ ] `vision.md`
-- [ ] `blueprint.md`
-- [ ] `prd.md`
-- [ ] `architecture.md`
-- [ ] `adr.md`
-- [ ] `roadmap.md`
-- [ ] `backlog.md`
-- [ ] `issues.md`
+- [x] `vision.md`
+- [x] `blueprint.md`
+- [x] `prd.md`
+- [x] `architecture.md`
+- [x] `adr.md`
+- [x] `roadmap.md`
+- [x] `backlog.md`
+- [x] `issues.md`
 
 ### Epic: Settings & Installer
 **Depends on**: None
 
-- [ ] Global `settings.json`
-- [ ] Project `settings.json`
-- [ ] `.claude/settings.json`
-- [ ] `install.sh` (global + project modes)
+- [x] Global `settings.json`
+- [x] Project `settings.json`
+- [x] `.claude/settings.json`
+- [x] `install.sh` (global + project modes)
 
 ---
 
@@ -117,11 +117,11 @@ Integration testing and documentation.
 ### Epic: Integration Validation
 **Depends on**: All Initial Phase epics
 
-- [ ] End-to-end test: `/orchestrate` workflow
-- [ ] Dogfood: use SCZ to build SCZ docs
-- [ ] Update README.md
+- [x] End-to-end test: `/orchestrate` workflow
+- [x] Dogfood: use SCZ to build SCZ docs
+- [x] Update README.md
 
-**→ TAG: v0.1.0 **
+**→ TAG: v0.1.0 ✅**
 
 ---
 
@@ -294,8 +294,8 @@ v1 Milestone
 
 | Milestone | Phase | Epics | Tasks | Status |
 |-----------|-------|-------|-------|--------|
-| v0 | Initial | 10 | 40 | 🔲 Not started |
-| v0 | Validation | 1 | 3 | 🔲 Not started |
+| v0 | Initial | 10 | 40 | ✅ Complete |
+| v0 | Validation | 1 | 3 | ✅ Complete |
 | v1 | MVP | 2 | 6 | 🔲 Not started |
 | v1 | Foundation | 5 | 15 | 🔲 Not started |
 | v1 | Factory | 6 | 23 | 🔲 Not started |

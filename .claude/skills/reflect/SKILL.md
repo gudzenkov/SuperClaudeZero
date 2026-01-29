@@ -22,6 +22,21 @@ Analyze the current session to:
 - Suggest workflow improvements
 - Enable cross-session learning
 
+## Constraints
+
+**OBSERVATION ONLY**: This skill captures learnings to Serena memory. It does NOT:
+- Edit source files
+- Modify agents/skills/hooks
+- Apply fixes or patches
+- Make any code changes
+
+To act on learnings, use `/optimize` which:
+1. Proposes changes with rationale
+2. Requires explicit user approval
+3. Creates backup before applying
+
+**Separation of concerns**: /reflect observes → /optimize proposes → user approves → /optimize applies
+
 ## Inputs
 
 - `$ARGUMENTS`: Optional focus area for reflection
