@@ -1,0 +1,97 @@
+name: Claude PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, ready_for_review, reopened]
+
+jobs:
+  code-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+      security-events: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code & Security Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          track_progress: true
+          prompt: |
+            Review this PR with focus areas:
+
+            ## Core Quality
+            - [ ] Code follows conventions
+            - [ ] No commented-out code
+            - [ ] Proper error handling
+            - [ ] DRY principle applied
+
+            ## Python & Development
+            - [ ] Code follows Python standards (PEP 8)
+            - [ ] Type hints used appropriately
+            - [ ] Documentation strings present
+            - [ ] Test coverage adequate
+
+            ## Security
+            - [ ] No hardcoded secrets, input validation present
+            - [ ] Command/injection restrictions enforced
+            - [ ] Secure error handling
+
+            ## OWASP Top 10
+            - [ ] SQL Injection vulnerabilities
+            - [ ] Cross-Site Scripting (XSS)
+            - [ ] Broken Authentication
+            - [ ] Sensitive Data Exposure
+            - [ ] XML External Entities (XXE)
+            - [ ] Broken Access Control
+            - [ ] Security Misconfiguration
+            - [ ] Cross-Site Request Forgery (CSRF)
+            - [ ] Using Components with Known Vulnerabilities
+            - [ ] Insufficient Logging & Monitoring
+
+            ## Documentation
+            - [ ] README/CLAUDE.md updated
+            - [ ] Complex logic commented
+
+            Rate security findings: CRITICAL, HIGH, MEDIUM, LOW.
+            Flag dangerous configurations. Provide remediation steps.
+
+            Post Review Summary with key findings.
+            Use `mcp__github_comment__update_claude_comment` tool to post Review Summary.
+            Do not include Positive Finding, only Checklist & concise Issues summary.
+
+            ## Inline Comment Deduplication (CRITICAL)
+            Before posting ANY inline comments:
+            1. FIRST use `mcp__github__list_pull_request_comments` to fetch ALL existing PR comments
+            2. Check each existing comment for:
+               - Same file path
+               - Same or nearby line number (within 5 lines)
+               - Similar issue description (same security concern, same code smell, etc.)
+               - Comments marked "Outdated" still count as duplicates
+               - Comments with user replies indicate the issue was already triaged
+            3. SKIP posting if ANY of these conditions match - even partial matches
+            4. Only post NEW issues that haven't been raised in previous review runs
+
+            Use `mcp__github_inline_comment__create_inline_comment` tool for genuinely new issues only.
+            Do not post inline comments for issues which are already resolved or addressed.
+
+            IMPORTANT! You have the capability to call multiple tools in a single turn.
+                       You SHALL combine those in a single message whenever possible to save turns (you have max 30)
+                       Preserve the last turn for the final summary comment posting.
+
+          claude_args: |
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,mcp__github_comment__update_claude_comment,mcp__github__get_pull_request,mcp__github__get_pull_request_diff,mcp__github__get_pull_request_files,mcp__github__list_pull_request_comments"
+            --disallowedTools WebSearch
+            --max-turns 30
+            --model claude-sonnet-4-20250514
+          allowed_bots: "dependabot[bot],renovate[bot],claude[bot]"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

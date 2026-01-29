@@ -1,0 +1,38 @@
+name: Weekly Maintenance
+on:
+  schedule:
+    - cron: "0 0 * * 0" # Every Sunday at midnight
+  workflow_dispatch: # Manual trigger option
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            REPO: ${{ github.repository }}
+
+            Perform weekly repository maintenance:
+
+            1. Check for outdated dependencies in pyproject.toml and uv.lock
+            2. Review open issues older than 90 days
+            3. Check for TODO comments in recent commits
+            4. Verify README.md examples still work
+            5. Review Claude Code configuration for optimization opportunities
+
+            Create a single issue summarizing any findings.
+            If critical security issues are found, also comment on open PRs.
+
+          claude_args: |
+            --allowedTools "Read,Bash(uv:*),Bash(gh issue:*),Bash(git:*),Bash(python:*)"
