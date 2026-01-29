@@ -1,0 +1,9 @@
+# Analysis Reports
+
+This directory stores outputs from /analyse skill.
+
+Reports follow the naming convention:
+  YYYY-MM-DD-topic.md
+
+Example:
+  2026-01-24-auth-flow-investigation.md
