@@ -108,6 +108,20 @@ def get_input_tokens(usage) -> int:
 
 async def estimate_distill(file_path: str, content_type: str | None = None) -> dict:
     """Estimate distillation metrics using ClaudeSDKClient with dual query."""
+    # Validate file path to prevent access to sensitive files outside current project
+    file_path_obj = Path(file_path).resolve()
+    current_dir = Path.cwd().resolve()
+
+    # Ensure file is within current directory tree
+    try:
+        file_path_obj.relative_to(current_dir)
+    except ValueError:
+        raise ValueError(f"File path not allowed: {file_path_obj}")
+
+    # Check for sensitive file patterns
+    if any(sensitive in str(file_path_obj).lower() for sensitive in ['.env', 'secret', 'password', 'key', 'token', 'credential']):
+        raise ValueError(f"Access to sensitive file not allowed: {file_path_obj}")
+
     with open(file_path, 'r') as f:
         content = f.read()
 

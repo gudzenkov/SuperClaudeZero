@@ -23,8 +23,8 @@ parse_common() {
     CWD=$(echo "$HOOK_INPUT" | jq -r '.cwd // empty')
     PERMISSION_MODE=$(echo "$HOOK_INPUT" | jq -r '.permission_mode // empty')
 
-    # Derived paths
-    PROJECT_NAME="${CWD##*/}"
+    # Derived paths - sanitize PROJECT_NAME to prevent command injection
+    PROJECT_NAME="$(basename "$CWD" | sed 's/[^a-zA-Z0-9_-]//g')"
     SESSION_LOG_DIR="${CWD}/logs/sessions/${SESSION_ID}"
 }
 
@@ -198,8 +198,13 @@ write_session_end_jsonl() {
     ts=$(date -Iseconds)
     local agent_count=0
     if [ -d "$SESSION_LOG_DIR" ]; then
-        agent_count=$(find "$SESSION_LOG_DIR" -maxdepth 1 -type d 2>/dev/null | wc -l)
-        agent_count=$((agent_count - 1))
+        # Validate and canonicalize path to prevent directory traversal
+        local safe_dir
+        safe_dir="$(readlink -f "$SESSION_LOG_DIR")"
+        if [[ "$safe_dir" == "$CWD"/logs/sessions/* ]]; then
+            agent_count=$(find "$safe_dir" -maxdepth 1 -type d 2>/dev/null | wc -l)
+            agent_count=$((agent_count - 1))
+        fi
     fi
     # Append as single-line JSON to JSONL file
     jq -c -n \

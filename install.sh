@@ -319,8 +319,8 @@ init_serena_project() {
     # Create .serena directory
     mkdir -p "${target}/.serena"
 
-    # Run serena project create (auto-detects languages)
-    if (cd "$target" && uvx --from git+https://github.com/oraios/serena serena project create --name "$project_name" 2>/dev/null); then
+    # Run serena project create (auto-detects languages) - properly quote project name to prevent command injection
+    if (cd "$target" && uvx --from git+https://github.com/oraios/serena serena project create --name "${project_name@Q}" 2>/dev/null); then
         log_success "Created: ${target}/.serena/project.yml"
         ((++CREATED))
     else
@@ -363,8 +363,13 @@ find_latest_backup() {
         return
     fi
 
-    # Find most recent backup directory
-    ls -1d "${backup_base}"/*/ 2>/dev/null | sort -r | head -1
+    # Find most recent backup directory - validate path to prevent traversal
+    local canonical_base canonical_target
+    canonical_base="$(readlink -f "$backup_base")"
+    canonical_target="$(readlink -f "$target")"
+    if [[ "$canonical_base" == "$canonical_target"/backups ]]; then
+        ls -1d "${backup_base}"/*/ 2>/dev/null | sort -r | head -1
+    fi
 }
 
 # Restore settings.json from backup
