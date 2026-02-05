@@ -107,6 +107,7 @@ Core orchestration with file-based memory and MD workflow templates.
 - [x] Project `settings.json`
 - [x] `.claude/settings.json`
 - [x] `install.sh` (global + project modes)
+- [x] Add MCP servers: Serena, Context7, DeepWiki, Parallel Search, Parallel Task, Playwright
 
 ---
 
@@ -142,9 +143,9 @@ Strands Framework integration with A2A protocol foundation.
 ### Epic: Setup
 **Depends on**: v0 complete
 
-- [ ] Add Playwright MCP server
-- [ ] Global installation support
-- [ ] Run in existing Devcontainer (out-of-scope)
+- [ ] Build Orchestrator as globally installable Python binary (uvx/pipx)
+- [ ] Devcontainer/Docker image with pre-installed dependencies
+- [ ] Global installation support (`orchestrator install`)
 
 ### Epic: Strands Framework Integration
 **Depends on**: v1 Setup
