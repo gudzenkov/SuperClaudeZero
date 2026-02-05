@@ -10,7 +10,7 @@
 | Milestone | Goal | Phases |
 |-----------|------|--------|
 | **v0** | Minimal viable multi-agent orchestration | Initial → Validation |
-| **v1** | Full Orchestrator vision | MVP → Foundation → Factory |
+| **v1** | Full Orchestrator vision | POC → MVP → Foundation → Factory |
 
 ---
 
@@ -129,58 +129,123 @@ Integration testing and documentation.
 
 **Goal**: Full Orchestrator vision with observability, execution engine, and advanced workflows.
 
-**Prerequisite**: v0.1.0  complete
+**Prerequisite**: v0.1.0 complete
+
+---
+
+## POC Phase
+
+Strands Framework integration with A2A protocol foundation.
+
+**Prerequisite**: v0.1.0 complete
+
+### Epic: Setup
+**Depends on**: v0 complete
+
+- [ ] Add Playwright MCP server
+- [ ] Global installation support
+- [ ] Run in existing Devcontainer (out-of-scope)
+
+### Epic: Strands Framework Integration
+**Depends on**: v1 Setup
+
+- [ ] Strands Framework setup
+- [ ] Custom Anthropic provider with Claude SDK (not Client SDK)
+- [ ] SCZ standard SWE Workflow implementation
+- [ ] Git Worktree per Agent (branch off current feature branch, merge back by Agent after acceptance criteria self-validation)
+
+### Epic: Structured Memory
+**Depends on**: v0 Memory System
+
+- [ ] Well-defined file-based KB with TOC file & index refs
+- [ ] Well-defined Serena memory structure with proper refs across related docs/skills
+- [ ] Context Manager skill/agent to gather high-signal data and structure properly before handing back to Orchestrator
 
 ---
 
 ## MVP Phase
 
-File-based KB, local Devcontainer, Basic Workflow Engine with MD templates.
+A2A protocol, Strands Agents, HITL controls, and Observability.
 
-> **Note**: v0 components carry forward. This phase adds execution environment.
+**Prerequisite**: POC Phase complete
 
-### Epic: Local Execution Environment
-**Depends on**: v0 complete
+### Epic: Multi-Provider Support
+**Depends on**: Strands Framework Integration
 
-- [ ] Devcontainer configuration
-- [ ] Development environment setup
-- [ ] Basic build integration
+- [ ] A2A-MCP-Server for Gemini
+- [ ] A2A-MCP-Server for Codex
+- [ ] Strands A2A Agents implementation
 
-### Epic: Enhanced Memory
-**Depends on**: v0 Memory System
+### Epic: Workflow Refinement
+**Depends on**: SCZ standard SWE Workflow
 
-- [ ] File-based Knowledge Base structure
-- [ ] Improved Serena memory organization
-- [ ] Session context management
+- [ ] Replace CC Hooks with Workflow steps
+- [ ] HITL controls integration
+
+### Epic: Observability Foundation
+**Depends on**: POC complete
+
+- [ ] OTEL (claude-code-otel) for Orchestrator
+- [ ] OTEL for Agents with parent span linkage
+- [ ] Prometheus + Loki integration
+- [ ] Grafana Dashboards
 
 ---
 
 ## Foundation Phase
 
-Ontology, Graph DB, Observability, Context Manager, Cloud Runtime.
+Ontology, Graph DB, Evaluations, Advanced Workflows, Policy Engine.
 
 **Prerequisite**: MVP Phase complete
 
-### Epic: Data Foundation
-**Depends on**: Enhanced Memory
+### Epic: Evaluations
+**Depends on**: Observability Foundation
 
+- [ ] Evaluation framework selection (Langfuse OR Harbor OR OpenEvals)
+- [ ] Framework integration
+- [ ] Automated quality assessment
+- [ ] Output validation
+
+### Epic: Data Foundation
+**Depends on**: Structured Memory
+
+- [ ] Database selection (SQL/NoSQL/Graph/TS/OLAP)
 - [ ] Ontology schema (entities, relationships)
 - [ ] Knowledge GraphDB integration
-- [ ] Observability DB (logs/traces/metrics)
+- [ ] Time-series DB (prices/metrics)
+- [ ] Analytics OLAP
 
-### Epic: Context Manager
+### Epic: Advanced Workflow Engine
+**Depends on**: Strands Agents
+
+- [ ] L2 Graph: Conditional routing via Strands Graph + A2A
+- [ ] L3 Swarm: Autonomous mesh via Strands Swarm + A2A native
+- [ ] Result aggregation
+- [ ] Conflict resolution
+
+### Epic: Policy Engine
 **Depends on**: Data Foundation
 
-- [ ] Dynamic context loading
-- [ ] Token budget management
-- [ ] Priority-based context selection
+- [ ] Steering contextual feedback
+- [ ] Policy-as-Code (OPA) integration
+- [ ] Agents RBAC/permissions management
+- [ ] Dynamic policy evaluation
+
+---
+
+## Factory Phase
+
+Cloud Runtime, Build Pipeline, Security, Resource Management, Guardrails.
+
+**Prerequisite**: Foundation Phase complete
 
 ### Epic: Cloud Runtime
-**Depends on**: Local Execution Environment
+**Depends on**: POC Devcontainer
 
-- [ ] Remote Devcontainer support
-- [ ] VM/K8s runtime configuration
+- [ ] Docker in K8s/CloudRun
+- [ ] Infra provisioning
 - [ ] Environment isolation
+- [ ] VPC/INET isolation
 
 ### Epic: Build Pipeline
 **Depends on**: Cloud Runtime
@@ -190,30 +255,15 @@ Ontology, Graph DB, Observability, Context Manager, Cloud Runtime.
 - [ ] CI/CD workflow definitions
 - [ ] Artifact registry management
 
-### Epic: Observability
-**Depends on**: Data Foundation
-
-- [ ] OpenTelemetry integration
-- [ ] Sub-agent span tracking
-- [ ] Metrics collection
-
----
-
-## Factory Phase
-
-Security, Resource Management, Evaluations, DAG Workflow Engine.
-
-**Prerequisite**: Foundation Phase complete
-
 ### Epic: Security Controls
 **Depends on**: Cloud Runtime
 
-- [ ] Devcontainer isolation
+- [ ] Secret Manager (1P/KeePass/GCP) integration
+- [ ] Agents OAuth & Authentication (subscription-based)
 - [ ] Cross-container restrictions
 - [ ] Runtime/CI/Cloud permissions escalation
-- [ ] Execution environment boundaries
 
-### Epic: Guardrails
+### Epic: OpenGuardrails
 **Depends on**: Security Controls
 
 - [ ] Command restriction in "Bypass permissions" mode
@@ -222,35 +272,20 @@ Security, Resource Management, Evaluations, DAG Workflow Engine.
 - [ ] Policy enforcement hooks
 
 ### Epic: Resource Management
-**Depends on**: Observability
+**Depends on**: Observability Foundation
 
 - [ ] Token budget allocation
 - [ ] Compute resource limits
 - [ ] Cost tracking
-
-### Epic: Evaluations
-**Depends on**: Observability
-
-- [ ] Automated quality assessment
-- [ ] Output validation framework
-- [ ] Benchmark integration
-
-### Epic: DAG Workflow Engine
-**Depends on**: Context Manager, Resource Management
-
-- [ ] DAG execution engine
-- [ ] Reactive triggers (webhook/event)
-- [ ] Proactive triggers (scheduled)
-- [ ] Human-in-the-loop (HITL) gates
-- [ ] Durable execution (failure recovery)
-- [ ] Persistent & shared state
+- [ ] Circuit breakers & rate limiting
 
 ### Epic: Autonomous Agents
-**Depends on**: DAG Workflow Engine, Guardrails
+**Depends on**: Advanced Workflow Engine, OpenGuardrails
 
 - [ ] Sensor/Ambient agent framework
-- [ ] Background monitoring
-- [ ] Proactive suggestions
+- [ ] Background monitoring routines
+- [ ] Goal-oriented research agents
+- [ ] Proactive collaboration
 
 **→ TAG: v1.0.0**
 
@@ -282,10 +317,27 @@ v0 Milestone
         → TAG: v0.1.0
 
 v1 Milestone
-├── MVP Phase ◄── v0.1.0
+├── POC Phase ◄── v0.1.0
+│   ├── Strands Framework Integration
+│   ├── MCP Enhancement
+│   └── Structured Memory
+├── MVP Phase ◄── POC
+│   ├── Multi-Provider Support
+│   ├── Workflow Refinement
+│   └── Observability Foundation
 ├── Foundation Phase ◄── MVP
+│   ├── Data Foundation
+│   ├── Evaluations
+│   ├── Advanced Workflow Engine
+│   └── Policy Engine
 └── Factory Phase ◄── Foundation
-    → TAG: v1.0.0
+    ├── Cloud Runtime
+    ├── Build Pipeline
+    ├── Security Controls
+    ├── OpenGuardrails
+    ├── Resource Management
+    └── Autonomous Agents
+        → TAG: v1.0.0
 ```
 
 ---
@@ -296,9 +348,10 @@ v1 Milestone
 |-----------|-------|-------|-------|--------|
 | v0 | Initial | 10 | 40 | ✅ Complete |
 | v0 | Validation | 1 | 3 | ✅ Complete |
-| v1 | MVP | 2 | 6 | 🔲 Not started |
-| v1 | Foundation | 5 | 15 | 🔲 Not started |
-| v1 | Factory | 6 | 23 | 🔲 Not started |
+| v1 | POC | 3 | 8 | 🔲 Not started |
+| v1 | MVP | 3 | 9 | 🔲 Not started |
+| v1 | Foundation | 4 | 16 | 🔲 Not started |
+| v1 | Factory | 6 | 24 | 🔲 Not started |
 
 ---
 

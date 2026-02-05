@@ -1,6 +1,6 @@
 # Orchestrator Design Blueprint
 
-**Version**: 0.3.0
+**Version**: 0.3.2
 **Status**: Accepted
 
 ---
@@ -36,7 +36,7 @@
 
 ---
 
-## v0 Phase Zero
+## Core System Architecture
 
 ### Agents (7)
 - Business Analyst, Architect, Project Manager, Developer, Validator, Deployer, Tech Writer
@@ -46,11 +46,11 @@
 - Orchestration (1): orchestrate
 - Utility (6): reflexion, reflect, optimize, analyse, research, distill
 
-### Hooks (4 events, 5 scripts)
-- SessionStart → Inject project context, parse AGENT_ID
-- SubagentStop → Agent validation + reflexion [blocking]
-- Stop → Orchestrator checklist, `/reflect` [blocking]
-- SessionEnd → Cleanup, logging, checkpoint [non-blocking]
+### Hooks (Lifecycle Events)
+- **SessionStart** → Context injection & initialization
+- **SubagentStop** → Agent validation & reflexion (blocking)
+- **Stop** → Orchestrator checklist & reflection (blocking)
+- **SessionEnd** → Cleanup, logging & state checkpoint (non-blocking)
 
 ### Memory (4-tier)
 - Session (Claude JSONL logs)
@@ -72,15 +72,15 @@
 
 ---
 
-## v1 Component Reference
+## Advanced Component Reference
 
 ### Runtime Engine
-1. Devcontainer (remote)
-2. Runtime Environment (VM/K8s)
-3. Git Worktree Isolation
+1. Devcontainer (local)
+2. Runtime Environment (Docker/K8s/CloudRun)
+3. Git Worktree Isolation (per Agent/Task)
 4. Build Pipeline (GitOps/MLOps)
 5. Security Controls
-6. Resource Management
+6. Resource Management (Token/Compute budgets)
 
 ### Orchestrator Engine
 1. Agent Lifecycle
@@ -94,11 +94,11 @@
 3. Context Propagation
   - Shared state distribution
   - Knowledge graph sync
-  - Session & project context
+  - Session & project context via Context Manager
 4. Coordination
-  - L1 Workflow: Hub-spoke via Strands + A2A (orchestrator delegates tasks sequentially)
-  - L2 Graph: Conditional routing via Strands Graph + A2A (orchestrator controls flow, optional peer A2A)
-  - L3 Swarm: Autonomous mesh via Strands Swarm + A2A native (agents collaborate via A2A peer protocol)
+  - **L1 Workflow**: Hub-spoke via Strands + A2A (orchestrator delegates tasks sequentially)
+  - **L2 Graph**: Conditional routing via Strands Graph + A2A (orchestrator controls flow, optional peer A2A)
+  - **L3 Swarm**: Autonomous mesh via Strands Swarm + A2A native (agents collaborate via A2A peer protocol)
   - Result aggregation via A2A task artifacts and Strands state
   - Conflict resolution via policy engine
 5. Control Plane
@@ -107,12 +107,10 @@
   - Circuit breakers & rate limiting
 
 ### Workflow Engine
-1. Engine (DAG)
+1. Engine (Strands Framework)
   - Initiation - reactive (trigger/webhook), proactive (time/event)
-  - 3-tier (Workflow/Graph/Swarm)
-  - Parallelization, aggregation, routing
+  - 3-tier coordination (Workflow/Graph/Swarm)
   - Framework: Strands Agents (native A2A support)
-  - Communication: A2A protocol for task delegation and status
   - Native OpenTelemetry observability
   - Human-in-the-Loop (HITL): A2A INPUT_REQUIRED state + Strands Interrupt
   - Persistent & shared state (A2A task history + Strands durable agent)
@@ -121,10 +119,10 @@
   - SWE: Spec -> PRD -> Architecture -> Plan -> Backlog -> Epic/Milestone/Task
   - Meta-Learning: Session Log -> Reflection -> Meta-Opt Plan -> Assessment -> Rollout
   - Background: Sensor Agents -> Background routines
-  - Autonomous: Ambient Agents -> Goal-oriented Research -> Meta-Opt Plan, Roadmap, Implementation
+  - Autonomous: Ambient Agents -> Goal-oriented Research -> Meta-Opt Plan, Implementation
 
 ### Workflow Services
-1. Data Connectors (MCP for tools, A2A for agents)
+1. Data Connectors (MCP for tools, A2A-MCP for agents)
 2. Context Manager
 3. Agents
   - Architect
@@ -149,31 +147,22 @@
   - Research (parallel MCP)
   - Distill (compaction/distillation/adjustable granularity)
   - Evaluate
-5. Hooks
-  - Setup -> Initialize serena, log dir, maintenance
-  - SessionStart/SubagentStart -> Inject project & session-id (used in Reflect)
-  - SubagentStop -> Agent self-validation, Reflexion [non-blocking]
-  - Stop -> Orchestrator checklist, /reflect [non-blocking]
-  - SessionEnd -> Cleanup, logging, state checkpoint [non-blocking]
+5. Hooks (Transitioning from CC Hooks to Strands Workflow steps)
 6. Observability Service Plane
-  - OpenTelemetry pipeline (claude-code-otel logs/traces/metrics; parent agent span inject)
+  - OpenTelemetry pipeline (claude-code-otel logs/traces/metrics)
   - Prometheus (metrics) + Loki (events/logs)
   - Grafana Dashboards/alerts
 7. Evaluations
-  - Framework selection: Langfuse OR Harbor OR OpenEvals (TBD)
+  - Framework: Langfuse OR Harbor OR OpenEvals
 
 ### Security Layer
 - Isolation (devcontainer/docker/VM/VPC/INET)
 - Secret Manager (1P/KeePass/GCP)
-- OAuth & Authentication (subscription-based, all providers):
-  - Claude: Custom Strands provider wrapping Anthropic Claude SDK
-  - Gemini/Codex: CLI wrappers (alternatively via npx/ts)
-  - Token Management: Secret Manager for OAuth tokens
-  - NO API keys
+- OAuth & Authentication (Strands providers for Claude, Gemini, Codex)
 - Policy-as-Code (OPA)
-- RBAC
+- RBAC & Agent permissions management
 - Approvals (HITL)
-- OpenGuardrails (content filtering, PII/secrets redaction, enforce policy)
+- OpenGuardrails (Content filtering, PII/secrets redaction, command restriction)
 
 ---
 
