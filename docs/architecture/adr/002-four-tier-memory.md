@@ -3,13 +3,13 @@
 **Status**: Accepted
 **Version**: 1.0
 **Date**: 2026-01-23
-**Context**: SuperClaudeZero v0 memory architecture
+**Context**: AgentOrchestrator v0 memory architecture
 
 ---
 
 ## Context
 
-SuperClaudeZero needs to manage different types of information with varying:
+AgentOrchestrator needs to manage different types of information with varying:
 - **Persistence**: How long data lives
 - **Access patterns**: Who reads/writes and when
 - **Structure**: Schema requirements

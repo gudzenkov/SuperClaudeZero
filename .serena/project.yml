@@ -87,7 +87,7 @@ excluded_tools: []
 # (contrary to the memories, which are loaded on demand).
 initial_prompt: ""
 # the name by which the project can be referenced within Serena
-project_name: "super-claude-zero"
+project_name: "orchestrator"
 
 # list of tools to include that would otherwise be disabled (particularly optional tools that are disabled by default)
 included_optional_tools: []

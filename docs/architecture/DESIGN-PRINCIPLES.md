@@ -1,7 +1,7 @@
-# SCZ Design Principles
+# Orchestrator Design Principles
 
 **Version**: 0.1.0
-**Purpose**: Architecture principles specific to SuperClaudeZero multi-agent orchestration
+**Purpose**: Architecture principles specific to AgentOrchestrator multi-agent orchestration
 
 ---
 

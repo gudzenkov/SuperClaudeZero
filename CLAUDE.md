@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guidance for Claude Code when working with SuperClaudeZero.
+Guidance for Claude Code when working with AgentOrchestrator.
 
 ---
 
@@ -154,10 +154,10 @@ global/policy/              # Framework policies (→ ~/.claude/policy/)
 ├── RULES.md                # Agent behavioral rules
 └── GUIDELINES.md           # User guidance
 
-docs/policy/                # SCZ project-specific policies
-├── PRINCIPLES.md           # SCZ-specific principles
-├── RULES.md                # SCZ-specific rules
-└── GUIDELINES.md           # SCZ-specific user guidance
+docs/policy/                # Orchestrator project-specific policies
+├── PRINCIPLES.md           # Orchestrator-specific principles
+├── RULES.md                # Orchestrator-specific rules
+└── GUIDELINES.md           # Orchestrator-specific user guidance
 
 project/docs/policy/        # Project template (→ <project>/docs/policy/)
 ├── RULES.md                # Template for project rules

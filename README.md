@@ -1,4 +1,4 @@
-# SuperClaudeZero
+# AgentOrchestrator
 
 Minimalist multi-agent orchestration framework for Claude Code.
 Inspired by SuperClaude.
@@ -9,7 +9,7 @@ Inspired by SuperClaude.
 
 ## Overview
 
-SuperClaudeZero (SCZ) transforms Claude Code from a single-turn assistant into an orchestrated multi-agent system with:
+AgentOrchestrator transforms Claude Code from a single-turn assistant into an orchestrated multi-agent system with:
 
 - **7 Specialized Agents**: Business Analyst, Architect, Project Manager, Developer, Validator, Deployer, Tech Writer
 - **14 Skills**: Workflow commands from `/spec` to `/deploy`
@@ -30,8 +30,8 @@ SuperClaudeZero (SCZ) transforms Claude Code from a single-turn assistant into a
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/super-claude-zero.git
-cd super-claude-zero
+git clone https://github.com/your-org/orchestrator.git
+cd orchestrator
 
 # Install globally (agents, skills, hooks, workflows)
 ./install.sh --global
@@ -135,7 +135,7 @@ claude
 
 ## Workflow Depths
 
-SCZ assesses complexity and recommends appropriate workflow depth:
+Orchestrator assesses complexity and recommends appropriate workflow depth:
 
 ### Full Workflow
 **Use when**: New product, complex system, multiple components
@@ -184,7 +184,7 @@ your-project/
 
 ## Artifact Hierarchy
 
-SCZ follows a layered artifact structure:
+Orchestrator follows a layered artifact structure:
 
 ```
 Strategic (locked after PRD)
@@ -219,7 +219,7 @@ MCP servers are pre-configured in `settings.json`. Serena requires `uvx` for dyn
 
 ## Hook System
 
-SCZ uses Claude Code hooks for lifecycle management.
+Orchestrator uses Claude Code hooks for lifecycle management.
 
 ### Global Hooks (command-based)
 
@@ -272,7 +272,7 @@ Three-tier policy structure:
 | Location | Purpose | Installed To |
 |----------|---------|--------------|
 | `global/policy/` | Framework-wide policies for all projects | `~/.claude/policy/` |
-| `docs/policy/` | SCZ project-specific policies | Not installed |
+| `docs/policy/` | Orchestrator project-specific policies | Not installed |
 | `project/docs/policy/` | Project template (RULES.md, GUIDELINES.md) | `<project>/docs/policy/` |
 
 **Policy files**:
@@ -286,7 +286,7 @@ Projects can customize `<project>/docs/policy/` files to supplement (not replace
 
 ## Templates
 
-SCZ provides templates for all artifact types in `~/.claude/templates/`:
+Orchestrator provides templates for all artifact types in `~/.claude/templates/`:
 
 | Template | Purpose | Output Location |
 |----------|---------|-----------------|
@@ -316,7 +316,7 @@ Milestone (v0, v1)     -> Git Tag
 
 1. Fork the repository
 2. Create a feature branch
-3. Use SCZ to plan and implement (`/orchestrate your feature`)
+3. Use Orchestrator to plan and implement (`/orchestrate your feature`)
 4. Submit a pull request
 
 ---

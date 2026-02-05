@@ -1,4 +1,4 @@
-# SuperClaudeZero Roadmap
+# AgentOrchestrator Roadmap
 
 **Version**: 0.3.2
 **Updated**: 2026-01-24
@@ -118,7 +118,7 @@ Integration testing and documentation.
 **Depends on**: All Initial Phase epics
 
 - [x] End-to-end test: `/orchestrate` workflow
-- [x] Dogfood: use SCZ to build SCZ docs
+- [x] Dogfood: use Orchestrator to build Orchestrator docs
 - [x] Update README.md
 
 **→ TAG: v0.1.0 ✅**
@@ -151,7 +151,7 @@ Strands Framework integration with A2A protocol foundation.
 
 - [ ] Strands Framework setup
 - [ ] Custom Anthropic provider with Claude SDK (not Client SDK)
-- [ ] SCZ standard SWE Workflow implementation
+- [ ] Orchestrator standard SWE Workflow implementation
 - [ ] Git Worktree per Agent (branch off current feature branch, merge back by Agent after acceptance criteria self-validation)
 
 ### Epic: Structured Memory
@@ -177,7 +177,7 @@ A2A protocol, Strands Agents, HITL controls, and Observability.
 - [ ] Strands A2A Agents implementation
 
 ### Epic: Workflow Refinement
-**Depends on**: SCZ standard SWE Workflow
+**Depends on**: Orchestrator standard SWE Workflow
 
 - [ ] Replace CC Hooks with Workflow steps
 - [ ] HITL controls integration

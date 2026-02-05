@@ -1,4 +1,4 @@
-# SuperClaudeZero Architecture Specification
+# AgentOrchestrator Architecture Specification
 
 **Version**: 0.1.0
 **Status**: Draft
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-This document defines the technical architecture for SuperClaudeZero (SCZ), a minimalist multi-agent orchestration framework for Claude Code. The architecture follows the Orchestrator blueprint with a lean subset focused on skills, agents, workflows, and memory.
+This document defines the technical architecture for AgentOrchestrator, a minimalist multi-agent orchestration framework for Claude Code. The architecture follows the Orchestrator blueprint with a lean subset focused on skills, agents, workflows, and memory.
 
 **Key Architectural Decisions**:
 - Pure markdown/JSON configuration (zero Python dependencies)
@@ -24,18 +24,18 @@ This document defines the technical architecture for SuperClaudeZero (SCZ), a mi
 
 > **See**: [System Diagrams](diagrams/system-overview.md)
 
-### What SCZ Provides vs Claude Code Native
+### What Orchestrator Provides vs Claude Code Native
 
 | Component | Provider | Description |
 |-----------|----------|-------------|
 | Skill routing (`/skill` → SKILL.md) | **Claude Code** | Native skill dispatch |
 | Task tool (subagent spawning) | **Claude Code** | Native agent invocation |
 | Hook execution | **Claude Code** | Native lifecycle events |
-| Skill definitions (SKILL.md files) | **SCZ** | Instructions for each skill |
-| Agent definitions (.md files) | **SCZ** | Thin wrappers with skills injected |
-| Hook scripts (.sh files) | **SCZ** | Reminder scripts for validation/learning |
-| Workflows (templates) | **SCZ** | Agent orchestration patterns |
-| Policy (rules, principles) | **SCZ** | Behavioral guidelines |
+| Skill definitions (SKILL.md files) | **Orchestrator** | Instructions for each skill |
+| Agent definitions (.md files) | **Orchestrator** | Thin wrappers with skills injected |
+| Hook scripts (.sh files) | **Orchestrator** | Reminder scripts for validation/learning |
+| Workflows (templates) | **Orchestrator** | Agent orchestration patterns |
+| Policy (rules, principles) | **Orchestrator** | Behavioral guidelines |
 
 ---
 
@@ -553,16 +553,16 @@ Minimal MCP footprint with two required servers.
 
 ### 7. File Structure
 
-Detailed file organization for SCZ installation.
+Detailed file organization for Orchestrator installation.
 
 #### 7.1 Repository Structure
 
 ```
-super-claude-zero/
+orchestrator/
 ├── README.md                           # Project overview
 ├── install.sh                          # Installer script
 │
-├── docs/                               # SCZ's own docs (dogfooding)
+├── docs/                               # Orchestrator's own docs (dogfooding)
 │   ├── objectives/
 │   │   ├── VISION.md
 │   │   ├── BLUEPRINT.md                # Technical scope, capabilities
@@ -675,7 +675,7 @@ super-claude-zero/
 | `.claude/` | `--global` | `~/.claude/` | Claude-native (agents, skills, hooks) |
 | `global/` | `--global` | `~/.claude/` | Higher-level (policy, workflows, templates) |
 | `project/` | `--project <path>` | `<path>/` | Per-project (objectives, knowledge, reports) |
-| `docs/` | - | Not deployed | SCZ's own documentation |
+| `docs/` | - | Not deployed | Orchestrator's own documentation |
 
 #### 7.3 Installation Behavior
 
@@ -683,9 +683,9 @@ The `install.sh` script handles existing files intelligently:
 
 | File Type | Behavior | Rationale |
 |-----------|----------|-----------|
-| `*.json` (settings, mcp) | **Patch/merge** | Preserve user customizations, add SCZ keys |
+| `*.json` (settings, mcp) | **Patch/merge** | Preserve user customizations, add Orchestrator keys |
 | `*.md` (agents, skills) | **Warn if different** | Don't overwrite user modifications |
-| `*.sh` (hooks) | **Backup + overwrite** | Scripts should match SCZ version |
+| `*.sh` (hooks) | **Backup + overwrite** | Scripts should match Orchestrator version |
 | New files | **Create** | No conflict |
 
 ##### JSON Patching (settings.json, mcp.json)
@@ -696,14 +696,14 @@ if [ -f "$TARGET" ]; then
     # Backup existing
     cp "$TARGET" "$TARGET.backup.$(date +%Y%m%d%H%M%S)"
 
-    # Deep merge: SCZ defaults + user customizations
+    # Deep merge: Orchestrator defaults + user customizations
     # User values take precedence for existing keys
-    jq -s '.[0] * .[1]' "$SCZ_SOURCE" "$TARGET" > "$TARGET.tmp"
+    jq -s '.[0] * .[1]' "$Orchestrator_SOURCE" "$TARGET" > "$TARGET.tmp"
     mv "$TARGET.tmp" "$TARGET"
 
     echo "Patched: $TARGET (backup created)"
 else
-    cp "$SCZ_SOURCE" "$TARGET"
+    cp "$Orchestrator_SOURCE" "$TARGET"
     echo "Created: $TARGET"
 fi
 ```
@@ -713,17 +713,17 @@ fi
 ```bash
 # Don't overwrite modified markdown files
 if [ -f "$TARGET" ]; then
-    if ! diff -q "$SCZ_SOURCE" "$TARGET" > /dev/null 2>&1; then
-        echo "WARNING: $TARGET exists and differs from SCZ version"
-        echo "  SCZ version: $SCZ_SOURCE"
+    if ! diff -q "$Orchestrator_SOURCE" "$TARGET" > /dev/null 2>&1; then
+        echo "WARNING: $TARGET exists and differs from Orchestrator version"
+        echo "  Orchestrator version: $Orchestrator_SOURCE"
         echo "  Your version preserved. Review manually if needed."
-        # Optionally copy SCZ version with .scz suffix for comparison
-        cp "$SCZ_SOURCE" "$TARGET.scz"
+        # Optionally copy Orchestrator version with .scz suffix for comparison
+        cp "$Orchestrator_SOURCE" "$TARGET.scz"
     else
         echo "Unchanged: $TARGET"
     fi
 else
-    cp "$SCZ_SOURCE" "$TARGET"
+    cp "$Orchestrator_SOURCE" "$TARGET"
     echo "Created: $TARGET"
 fi
 ```
@@ -736,7 +736,7 @@ if [ -f "$TARGET" ]; then
     cp "$TARGET" "$TARGET.backup.$(date +%Y%m%d%H%M%S)"
     echo "Backed up: $TARGET"
 fi
-cp "$SCZ_SOURCE" "$TARGET"
+cp "$Orchestrator_SOURCE" "$TARGET"
 chmod +x "$TARGET"
 echo "Installed: $TARGET"
 ```
@@ -744,7 +744,7 @@ echo "Installed: $TARGET"
 ##### Installation Summary Output
 
 ```
-SCZ Installation Summary
+Orchestrator Installation Summary
 ========================
 Created:  12 files
 Patched:   2 files (settings.json, mcp.json)
@@ -969,4 +969,4 @@ Full Architecture Decision Records are maintained in the [adr/](adr/) directory:
 1. **PRD Approval**: Confirm this architecture matches PRD intent
 2. **Planning**: `/plan` to generate implementation tasks
 3. **Implementation**: Build incrementally (agents → skills → hooks → workflows)
-4. **Validation**: Test with dogfooding (SCZ building SCZ)
+4. **Validation**: Test with dogfooding (Orchestrator building Orchestrator)

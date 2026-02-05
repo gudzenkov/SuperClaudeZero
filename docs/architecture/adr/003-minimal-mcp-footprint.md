@@ -3,7 +3,7 @@
 **Status**: Accepted
 **Version**: 1.0
 **Date**: 2026-01-23
-**Context**: SuperClaudeZero v0 MCP server selection
+**Context**: AgentOrchestrator v0 MCP server selection
 
 ---
 
@@ -27,7 +27,7 @@ This created:
 - Maintenance burden
 - Token overhead from tool descriptions
 
-SuperClaudeZero aims for minimalism: "What's the smallest MCP set that enables core workflows?"
+AgentOrchestrator aims for minimalism: "What's the smallest MCP set that enables core workflows?"
 
 ## Decision
 

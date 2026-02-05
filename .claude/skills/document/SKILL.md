@@ -493,9 +493,9 @@ Check documentation quality:
 ## Policy Locations
 
 ```
-global/policy/        # SCZ framework policies (→ ~/.claude/policy/)
-├── PRINCIPLES.md     # SW engineering principles (for SCZ)
-├── RULES.md          # Behavioral rules (for SCZ)
+global/policy/        # Orchestrator framework policies (→ ~/.claude/policy/)
+├── PRINCIPLES.md     # SW engineering principles (for Orchestrator)
+├── RULES.md          # Behavioral rules (for Orchestrator)
 └── GUIDELINES.md     # User guidance (for users)
 
 docs/policy/          # Project-local policies (supplement global)

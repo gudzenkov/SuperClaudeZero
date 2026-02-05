@@ -1,4 +1,4 @@
-# SuperClaudeZero Vision
+# AgentOrchestrator Vision
 
 **Version**: 0.1.0
 **Updated**: 2026-01-24
@@ -13,7 +13,7 @@ AI coding assistants operate in single-turn mode: no persistent memory, no struc
 
 **"From assistant to orchestrator"**
 
-SCZ transforms Claude Code into an autonomous software engineering orchestrator that:
+Orchestrator transforms Claude Code into an autonomous software engineering orchestrator that:
 - Coordinates specialized agents through defined workflows
 - Validates its own work through hooks
 - Learns from mistakes via reflexion

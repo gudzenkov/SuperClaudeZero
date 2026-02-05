@@ -3,13 +3,13 @@
 **Status**: Accepted
 **Version**: 1.0
 **Date**: 2026-01-24 (revised)
-**Context**: SuperClaudeZero v0 hook system design
+**Context**: AgentOrchestrator v0 hook system design
 
 ---
 
 ## Context
 
-SuperClaudeZero needs lifecycle event handling for:
+AgentOrchestrator needs lifecycle event handling for:
 1. Session initialization (inject context variables)
 2. Agent completion (validate, learn from errors)
 3. Session end (checkpoint state)

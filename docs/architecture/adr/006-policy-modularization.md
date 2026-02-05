@@ -3,13 +3,13 @@
 **Status**: Accepted
 **Version**: 1.1
 **Date**: 2026-01-25
-**Context**: SuperClaudeZero v0 policy loading strategy
+**Context**: AgentOrchestrator v0 policy loading strategy
 
 ---
 
 ## Context
 
-SuperClaudeZero defines operational policies in three files:
+AgentOrchestrator defines operational policies in three files:
 
 | File | Tokens | Purpose |
 |------|--------|---------|
@@ -58,7 +58,7 @@ Loading all policies (~5,600 tokens) into every agent/skill wastes context, espe
 
 ### Agent -> Section Mapping
 
-Per PRD FR1, SuperClaudeZero has 7 specialized agents plus orchestration:
+Per PRD FR1, AgentOrchestrator has 7 specialized agents plus orchestration:
 
 | Agent | Skill | RULES Sections |
 |-------|-------|----------------|

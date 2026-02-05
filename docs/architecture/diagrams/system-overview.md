@@ -1,4 +1,4 @@
-# SuperClaudeZero System Diagrams
+# AgentOrchestrator System Diagrams
 
 ## High-Level Architecture
 
@@ -10,7 +10,7 @@
 +=========================================================================+
 |                      CLAUDE CODE (Native Runtime)                        |
 |                                                                          |
-|  Built-in capabilities (NOT SCZ components):                            |
+|  Built-in capabilities (NOT Orchestrator components):                            |
 |  - Skill routing: /skill -> ~/.claude/skills/skill/SKILL.md              |
 |  - Task tool: spawns subagents with subagent_type                       |
 |  - Hook execution: runs lifecycle event scripts                         |
@@ -23,7 +23,7 @@
 +-------------------+     +-------------------+     +-------------------+
 |                   |     |                   |     |                   |
 |      SKILLS       |     |      AGENTS       |     |      HOOKS        |
-|  (SCZ provides)   |     |  (SCZ provides)   |     |  (SCZ provides)   |
+|  (Orchestrator provides)   |     |  (Orchestrator provides)   |     |  (Orchestrator provides)   |
 |                   |     |                   |     |                   |
 | Agent-backed (7): |     | With skills       |     | Lifecycle:        |
 | spec, design,     |<--->| injected:         |     | - SessionStart    |
@@ -74,5 +74,5 @@
 | [Memory System](memory-system.md) | Four-tier memory architecture (Session, Semantic, Reflexion, Transient) |
 | [Hook System](hook-system.md) | Hook lifecycle flow from SessionStart to SessionEnd |
 | [Agent-Skill Mapping](agent-skill-mapping.md) | Mapping of agents to skills and artifacts |
-| [Installation Mapping](installation-mapping.md) | How SCZ files map to installation targets |
-| [SCZ vs Native](scz-vs-native.md) | What SCZ provides vs Claude Code native capabilities |
+| [Installation Mapping](installation-mapping.md) | How Orchestrator files map to installation targets |
+| [Orchestrator vs Native](scz-vs-native.md) | What Orchestrator provides vs Claude Code native capabilities |

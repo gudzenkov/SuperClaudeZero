@@ -2,13 +2,13 @@
 
 **Version**: 0.1.0
 
-Documentation for Serena MCP usage in SuperClaudeZero.
+Documentation for Serena MCP usage in AgentOrchestrator.
 
 ---
 
 ## Overview
 
-Serena MCP provides persistent memory and symbolic code operations for SCZ. It enables:
+Serena MCP provides persistent memory and symbolic code operations for Orchestrator. It enables:
 - Cross-session knowledge persistence
 - Error learning capture (reflexion)
 - Validation record storage
@@ -18,7 +18,7 @@ Serena MCP provides persistent memory and symbolic code operations for SCZ. It e
 
 ## Project Initialization
 
-The SCZ installer automatically initializes Serena for new projects:
+The Orchestrator installer automatically initializes Serena for new projects:
 
 ```bash
 ./install.sh --project /path/to/your/project
@@ -44,7 +44,7 @@ uvx --from git+https://github.com/oraios/serena serena project create
 
 ## Memory Tiers (ADR-002)
 
-SCZ uses a four-tier memory architecture:
+Orchestrator uses a four-tier memory architecture:
 
 | Tier | Purpose | Storage | Lifetime |
 |------|---------|---------|----------|
@@ -57,7 +57,7 @@ SCZ uses a four-tier memory architecture:
 
 ## Memory Namespaces
 
-SCZ uses namespaced memory for organization:
+Orchestrator uses namespaced memory for organization:
 
 ### `knowledge/`
 Project-level semantic knowledge:

@@ -1,16 +1,16 @@
-# SuperClaudeZero Hook System
+# AgentOrchestrator Hook System
 
 **Version**: 0.1.0
 
-Documentation for SCZ hook scripts and lifecycle events.
+Documentation for Orchestrator hook scripts and lifecycle events.
 
 ---
 
 ## Overview
 
-SCZ uses Claude Code hooks to inject context, prompt validation, and capture session learnings. Hooks follow the **reminder pattern** (ADR-001): they prompt agents but don't enforce behavior.
+Orchestrator uses Claude Code hooks to inject context, prompt validation, and capture session learnings. Hooks follow the **reminder pattern** (ADR-001): they prompt agents but don't enforce behavior.
 
-SCZ supports two hook types:
+Orchestrator supports two hook types:
 - **Command-based hooks**: Shell scripts installed globally (`~/.claude/`) - shared across all projects
 - **Prompt-based hooks**: Claude evaluation installed per-project (`.claude/`) - portable with the codebase
 

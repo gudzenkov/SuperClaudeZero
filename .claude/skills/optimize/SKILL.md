@@ -1,6 +1,6 @@
 ---
 name: optimize
-description: Propose improvements to SCZ agents, skills, and workflows based on session learnings
+description: Propose improvements to Orchestrator agents, skills, and workflows based on session learnings
 argument-hint: [focus area]
 user-invocable: true
 allowed-tools:
@@ -12,7 +12,7 @@ allowed-tools:
 
 # /optimize - System Optimization
 
-Propose improvements to SCZ components based on accumulated learnings.
+Propose improvements to Orchestrator components based on accumulated learnings.
 
 ## Purpose
 
@@ -50,7 +50,7 @@ Analyze for recurring themes:
 - Successful approaches worth standardizing
 
 ### 3. Map to Components
-For each pattern, identify relevant SCZ component:
+For each pattern, identify relevant Orchestrator component:
 - Agent instructions → `.claude/agents/*.md`
 - Skill workflows → `.claude/skills/*/SKILL.md`
 - Hook prompts → `.claude/hooks/scripts/*.sh`

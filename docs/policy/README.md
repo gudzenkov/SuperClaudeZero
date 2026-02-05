@@ -5,7 +5,7 @@ This directory contains project-specific policies that supplement (not replace) 
 ## Policy Hierarchy
 
 ```
-~/.claude/policy/         # Global (from SCZ)
+~/.claude/policy/         # Global (from Orchestrator)
 ├── PRINCIPLES.md         # SW engineering principles
 ├── RULES.md              # Behavioral rules
 └── GUIDELINES.md         # User guidance

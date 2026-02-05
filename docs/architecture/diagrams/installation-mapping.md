@@ -3,7 +3,7 @@
 ```
 REPOSITORY                              INSTALLATION TARGETS
 
-super-claude-zero/
+orchestrator/
 |
 +-- .claude/                ---------------------> ~/.claude/
 |   +-- agents/                                   +-- agents/
@@ -39,6 +39,6 @@ super-claude-zero/
 |-----------|----------|
 | `*.json` (settings, mcp) | **PATCH**: Deep merge, preserve user keys, backup first |
 | `*.md` (agents, skills) | **WARN**: If exists and different, warn + create .scz copy. Don't overwrite user changes. |
-| `*.sh` (hooks) | **BACKUP + OVERWRITE**: Scripts must match SCZ version. Backup to ~/.claude/backups/ |
+| `*.sh` (hooks) | **BACKUP + OVERWRITE**: Scripts must match Orchestrator version. Backup to ~/.claude/backups/ |
 | New files | **CREATE**: No conflict, just copy |
 | `*.template` (project init) | **CREATE ONLY**: Skip if target exists. User owns these. |

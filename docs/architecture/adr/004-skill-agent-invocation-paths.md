@@ -3,13 +3,13 @@
 **Status**: Accepted
 **Version**: 1.0
 **Date**: 2026-01-24
-**Context**: SuperClaudeZero v0 skill/agent routing design
+**Context**: AgentOrchestrator v0 skill/agent routing design
 
 ---
 
 ## Context
 
-SuperClaudeZero needs to support two invocation paths for agent-backed functionality:
+AgentOrchestrator needs to support two invocation paths for agent-backed functionality:
 
 1. **Direct**: User invokes skill directly (e.g., `/spec "todo app"`)
 2. **Orchestrated**: User invokes `/orchestrate` which chains agents through workflow

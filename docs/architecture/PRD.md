@@ -1,4 +1,4 @@
-# SuperClaudeZero Product Requirements Document
+# AgentOrchestrator Product Requirements Document
 
 **Version**: 0.1.0
 **Status**: Accepted
@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-SuperClaudeZero is a lean, self-contained multi-agent orchestration framework for Claude Code. It strips away the complexity of SuperClaude v4.2.0 (30+ commands, personas, modes, Python dependencies) in favor of a minimal architecture based on the **Orchestrator** blueprint.
+AgentOrchestrator is a lean, self-contained multi-agent orchestration framework for Claude Code. It strips away the complexity of SuperClaude v4.2.0 (30+ commands, personas, modes, Python dependencies) in favor of a minimal architecture based on the **Orchestrator** blueprint.
 
 **Core Architecture:**
 - **Main Orchestrator** (Claude itself) with `/orchestrate` skill as control loop
@@ -115,7 +115,7 @@ You are [agent role]. Your task is to invoke the [skill-name] skill and...
 
 ### FR2: Skill Interface
 
-> **Note**: SuperClaudeZero uses skills exclusively (`.claude/skills/`). Skills support additional features over legacy commands: context forking, agent delegation, and lifecycle hooks.
+> **Note**: AgentOrchestrator uses skills exclusively (`.claude/skills/`). Skills support additional features over legacy commands: context forking, agent delegation, and lifecycle hooks.
 
 Fourteen user-facing skills:
 
@@ -396,15 +396,15 @@ Minimal set:
 
 ## File Structure
 
-Three nested layers + SCZ's own docs (SCZ dogfoods itself).
+Three nested layers + Orchestrator's own docs (Orchestrator dogfoods itself).
 
 ```text
-super-claude-zero/
+orchestrator/
 ├── README.md
 ├── install.sh                   # Installer (--global | --project targets)
 │
 │   # ════════════════════════════════════════════════════════════════
-│   # SCZ DOCS (SCZ using itself as target project - "dogfooding")
+│   # Orchestrator DOCS (Orchestrator using itself as target project - "dogfooding")
 │   # ════════════════════════════════════════════════════════════════
 │
 ├── docs/
@@ -416,7 +416,7 @@ super-claude-zero/
 │   │   └── adr/                 # Architecture Decision Records
 │   ├── development/             # Current work
 │   │   └── BACKLOG.md
-│   └── knowledge/               # SCZ knowledge base
+│   └── knowledge/               # Orchestrator knowledge base
 │       └── README.md
 │
 │   # ════════════════════════════════════════════════════════════════
@@ -526,11 +526,11 @@ install.sh --all <path>                # Both targets
 | `.claude/` | agents, skills, hooks, settings | `--global` | `~/.claude/` (CC-native) |
 | `global/` | policy, workflows, templates | `--global` | `~/.claude/` (higher-level) |
 | `project/` | objectives, knowledge, reports | `--project <path>` | `<path>/` (per-project) |
-| `docs/` | SCZ's own project docs (dogfooding) | - | Not deployed |
+| `docs/` | Orchestrator's own project docs (dogfooding) | - | Not deployed |
 
 **Data Foundation mapping:**
 
-| Data Category | SCZ Location | Deployed via | Target |
+| Data Category | Orchestrator Location | Deployed via | Target |
 | --------------- | ------------ | ------------ | ------ |
 | Policy | `global/policy/` | `--global` | `~/.claude/policy/` |
 | Procedures (workflows) | `global/workflows/` | `--global` | `~/.claude/workflows/` |
@@ -545,7 +545,7 @@ install.sh --all <path>                # Both targets
 
 ### Artifact Storage Location
 
-Artifacts are written to the **target project repo**, not SuperClaudeZero:
+Artifacts are written to the **target project repo**, not AgentOrchestrator:
 
 ```text
 # Working on project "my-app"
@@ -569,8 +569,8 @@ my-app/
     # /reflect → reflection records
     # /reflexion → reflexion records
 
-# Working on SuperClaudeZero itself
-super-claude-zero/
+# Working on AgentOrchestrator itself
+orchestrator/
 ├── docs/
 │   ├── architecture/PRD.md  # This PRD (meta!)
 │   └── ...
@@ -646,7 +646,7 @@ super-claude-zero/
 
 ### Command Migration
 
-| SuperClaude v4 | SuperClaudeZero | Notes |
+| SuperClaude v4 | AgentOrchestrator | Notes |
 | -------------- | --------------- | ----- |
 | `/sc:brainstorm` | `/spec` | Renamed |
 | `/sc:spec-panel` | `/design` | Renamed |
@@ -670,7 +670,7 @@ SuperClaude v4 RULES.md contains valuable principles but with v4-specific refere
 | --------------- | ---------- | ----- |
 | Rule Priority System | **Keep as-is** | Universal (Critical/Important/Recommended) |
 | Agent Orchestration | **Adapt** | Remove persona references, align with agents |
-| Workflow Rules | **Adapt** | Remove `/sc:load`/`/sc:save`, use SCZ commands |
+| Workflow Rules | **Adapt** | Remove `/sc:load`/`/sc:save`, use Orchestrator commands |
 | Planning Efficiency | **Keep as-is** | Universal parallelization principles |
 | Implementation Completeness | **Keep as-is** | Universal |
 | Scope Discipline | **Keep as-is** | Universal |
@@ -683,7 +683,7 @@ SuperClaude v4 RULES.md contains valuable principles but with v4-specific refere
 | File Organization | **Adapt** | Remove `claudedocs/` specific references |
 | Safety Rules | **Keep as-is** | Universal |
 | Temporal Awareness | **Keep as-is** | Universal |
-| Quick Reference | **Adapt** | Update tool matrix for SCZ MCP stack |
+| Quick Reference | **Adapt** | Update tool matrix for Orchestrator MCP stack |
 
 **Generalization principle**: Keep behavioral rules, remove implementation-specific commands/tools
 
@@ -694,7 +694,7 @@ SuperClaude v4 RULES.md contains valuable principles but with v4-specific refere
 | Question | Decision |
 | -------- | -------- |
 | Hook implementation | Hooks remind agents (validate, reflexion, reflect); agent decides |
-| Artifact storage | Files in target project repo (or SCZ repo if improving SCZ itself) |
+| Artifact storage | Files in target project repo (or Orchestrator repo if improving Orchestrator itself) |
 | Agent granularity | Keep all 7 agents |
 | Workflow rigidity | Flexible - small/low-complexity can skip steps (e.g., roadmap → plan → task) |
 
@@ -713,7 +713,7 @@ SuperClaude v4 RULES.md contains valuable principles but with v4-specific refere
 
 This PRD is based on the Orchestrator blueprint ([BLUEPRINT.md](../objectives/BLUEPRINT.md)):
 
-SuperClaudeZero [v0] implements a **lean subset** focused on:
+AgentOrchestrator [v0] implements a **lean subset** focused on:
 - Skills and Agents (Actors)
 - Two core Workflows
 - Embedded Hooks (SessionStart, SubagentStop, Stop, SessionEnd)

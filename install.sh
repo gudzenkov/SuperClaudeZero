@@ -1,5 +1,5 @@
 #!/bin/bash
-# SuperClaudeZero Installer
+# AgentOrchestrator Installer
 # Usage:
 #   ./install.sh --global              Install to ~/.claude/
 #   ./install.sh --project <path>      Install project templates to <path>
@@ -32,7 +32,7 @@ OVERWRITE=false
 # Print usage
 usage() {
     cat << EOF
-SuperClaudeZero Installer v${VERSION}
+AgentOrchestrator Installer v${VERSION}
 
 Usage:
     ./install.sh --global              Install to ~/.claude/
@@ -143,7 +143,7 @@ copy_markdown() {
             ((++BACKUPS))
             ((++CREATED))
         else
-            log_warning "$target exists and differs from SCZ version"
+            log_warning "$target exists and differs from AgentOrchestrator version"
             log_warning "  Use --overwrite to replace (backup to backups/)"
         fi
     else
@@ -333,7 +333,7 @@ init_serena_project() {
 print_summary() {
     echo ""
     echo "=================================="
-    echo "SCZ Installation Summary"
+    echo "AgentOrchestrator Installation Summary"
     echo "=================================="
     echo -e "Created:    ${GREEN}${CREATED}${NC} files"
     echo -e "Patched:    ${BLUE}${PATCHED}${NC} files"
@@ -509,7 +509,7 @@ main() {
     done
 
     echo ""
-    echo "SuperClaudeZero Installer v${VERSION}"
+    echo "AgentOrchestrator Installer v${VERSION}"
     echo "=================================="
     echo ""
 

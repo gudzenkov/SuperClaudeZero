@@ -1,4 +1,4 @@
-# SuperClaudeZero Backlog
+# AgentOrchestrator Backlog
 
 **Version**: 0.1.0
 **Updated**: 2026-01-29 (50/50 tasks done)
@@ -53,7 +53,7 @@
 | T-037 | v0 | Initial | Settings & Installer | .claude/settings.json | PRD | P0 | ✅ |
 | T-038 | v0 | Initial | Settings & Installer | install.sh | PRD, NFR3 | P0 | ✅ |
 | T-039 | v0 | Validation | Integration | E2E /orchestrate test | US4 | P0 | ✅ |
-| T-040 | v0 | Validation | Integration | Dogfood SCZ docs | PRD | P1 | ✅ |
+| T-040 | v0 | Validation | Integration | Dogfood Orchestrator docs | PRD | P1 | ✅ |
 | T-041 | v0 | Validation | Integration | Update README.md | PRD | P0 | ✅ |
 | T-042 | v0 | Initial | Policy | DESIGN-PRINCIPLES.md | PRD | P1 | ✅ |
 | T-043 | v0 | Initial | Hooks | .claude/hooks/README.md | PRD | P2 | ✅ |
@@ -437,8 +437,8 @@
 
 ### T-037: .claude/settings.json
 **AC**:
-- SCZ project settings (dogfooding)
-- Hook configurations specific to SCZ development
+- Orchestrator project settings (dogfooding)
+- Hook configurations specific to Orchestrator development
 - MCP server references
 
 ---
@@ -466,9 +466,9 @@
 
 ---
 
-### T-040: Dogfood SCZ docs
+### T-040: Dogfood Orchestrator docs
 **AC**:
-- Use SCZ agents/skills to update SCZ's own documentation
+- Use Orchestrator agents/skills to update Orchestrator's own documentation
 - Verify /spec, /design, /plan skills work
 - Capture feedback for improvement
 
@@ -486,7 +486,7 @@
 
 ### T-042: DESIGN-PRINCIPLES.md
 **AC**:
-- SCZ-specific architecture principles
+- Orchestrator-specific architecture principles
 - Includes: Skill as Source of Truth, Convention over Config, Minimal MCP
 - Agent/Skill/Development principles
 - Location: `docs/architecture/DESIGN-PRINCIPLES.md`
@@ -514,7 +514,7 @@
 
 ### T-045: .serena/README.md
 **AC**:
-- Documents Serena MCP usage for SCZ
+- Documents Serena MCP usage for Orchestrator
 - Explains memory tiers (semantic, reflexion, transient)
 - Location: `.serena/README.md`
 

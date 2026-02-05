@@ -82,7 +82,7 @@ completion: full | partial | blocked
 
 ### Phase 2: System Optimization (`/optimize`)
 
-Propose improvements to SCZ components.
+Propose improvements to Orchestrator components.
 
 ```
 ┌─────────────────────────────────────────┐

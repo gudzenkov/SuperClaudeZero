@@ -1,6 +1,6 @@
-# SuperClaudeZero User Guidelines
+# AgentOrchestrator User Guidelines
 
-Concise guidance for users working with SCZ workflows.
+Concise guidance for users working with Orchestrator workflows.
 
 ---
 
@@ -90,7 +90,7 @@ Each **Task** should be:
 
 For new projects:
 ```bash
-# Install SCZ to your project
+# Install Orchestrator to your project
 ./install.sh --project /path/to/project
 
 # Creates:

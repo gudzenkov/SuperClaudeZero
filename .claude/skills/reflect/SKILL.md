@@ -157,13 +157,13 @@ If session is incomplete:
 ---
 date: 2026-01-24
 session_id: abc123
-project: super-claude-zero
+project: orchestrator
 duration_estimate: long
 completion: partial
 ---
 
 ## Session Summary
-Implemented core agents and skills for SuperClaudeZero v0. Created hook scripts, agent definitions, and skill files.
+Implemented core agents and skills for AgentOrchestrator v0. Created hook scripts, agent definitions, and skill files.
 
 ## Tasks Completed
 - [x] Hook scripts (inject-context, remind-validate, remind-reflexion, remind-reflect)
