@@ -158,7 +158,7 @@
 ### Security Layer
 - Isolation (devcontainer/docker/VM/VPC/INET)
 - Secret Manager (1P/KeePass/GCP)
-- OAuth & Authentication (Strands providers for Claude, Gemini, Codex)
+- OAuth & Authentication (Hybrid A2A-MCP Bridge for Claude, Gemini, Codex)
 - Policy-as-Code (OPA)
 - RBAC & Agent permissions management
 - Approvals (HITL)

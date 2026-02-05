@@ -1,7 +1,7 @@
 # AgentOrchestrator Roadmap
 
-**Version**: 0.3.2
-**Updated**: 2026-01-24
+**Version**: 0.3.3
+**Updated**: 2026-02-05
 
 ---
 
@@ -174,7 +174,7 @@ A2A protocol, Strands Agents, HITL controls, and Observability.
 
 - [ ] A2A-MCP-Server for Gemini
 - [ ] A2A-MCP-Server for Codex
-- [ ] Strands A2A Agents implementation
+- [ ] Strands A2A Configuration & Discovery Setup
 
 ### Epic: Workflow Refinement
 **Depends on**: Orchestrator standard SWE Workflow
