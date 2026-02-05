@@ -13,6 +13,28 @@
     "deepwiki": {
       "type": "http",
       "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "Parallel-Search": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://search-mcp.parallel.ai/mcp",
+        "--header",
+        "authorization: Bearer ${PARALLEL_API_KEY}"
+      ]
+    },
+    "Parallel-Task": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://task-mcp.parallel.ai/mcp",
+        "--header",
+        "authorization: Bearer ${PARALLEL_API_KEY}"
+      ]
     }
   }
 }
