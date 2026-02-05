@@ -4,7 +4,7 @@
 #   ./install.sh --global              Install to ~/.claude/
 #   ./install.sh --project <path>      Install project templates to <path>
 #   ./install.sh --all <path>          Both global and project installation
-#   ./install.sh --overwrite           Overwrite existing files (backup to .bkp)
+#   ./install.sh --overwrite           Overwrite existing files (backup to .backup/)
 #   ./install.sh --cleanup             Remove installed artifacts, restore settings
 
 set -e
@@ -38,7 +38,7 @@ Usage:
     ./install.sh --global              Install to ~/.claude/
     ./install.sh --project <path>      Install project templates to <path>
     ./install.sh --all <path>          Both global and project installation
-    ./install.sh --overwrite           Overwrite existing markdown files (backup to .bkp)
+    ./install.sh --overwrite           Overwrite existing markdown files (backup to .backup/)
     ./install.sh --cleanup             Remove installed artifacts, restore settings from backup
     ./install.sh --help                Show this help
 
@@ -85,7 +85,7 @@ log_error() {
 create_backup_dir() {
     local target="$1"
     local backup_dir
-    backup_dir="${target}/backups/$(date +%Y-%m-%d_%H-%M-%S)"
+    backup_dir="${target}/.backup/$(date +%Y-%m-%d_%H-%M-%S)"
     mkdir -p "$backup_dir"
     echo "$backup_dir"
 }
@@ -144,7 +144,7 @@ copy_markdown() {
             ((++CREATED))
         else
             log_warning "$target exists and differs from AgentOrchestrator version"
-            log_warning "  Use --overwrite to replace (backup to backups/)"
+            log_warning "  Use --overwrite to replace (backup to .backup/)"
         fi
     else
         mkdir -p "$(dirname "$target")"
@@ -256,6 +256,11 @@ install_global() {
         fi
     fi
 
+    # Install global MCP servers to ~/.claude.json (user-scope)
+    if [ -f "${SCRIPT_DIR}/global/mcp.json" ]; then
+        merge_json "${SCRIPT_DIR}/global/mcp.json" "${HOME}/.claude.json" "$backup_dir" ".claude.json"
+    fi
+
     log_success "Global installation complete"
 }
 
@@ -356,7 +361,7 @@ print_summary() {
 # Find latest backup directory
 find_latest_backup() {
     local target="$1"
-    local backup_base="${target}/backups"
+    local backup_base="${target}/.backup"
 
     if [ ! -d "$backup_base" ]; then
         echo ""
@@ -367,7 +372,7 @@ find_latest_backup() {
     local canonical_base canonical_target
     canonical_base="$(readlink -f "$backup_base")"
     canonical_target="$(readlink -f "$target")"
-    if [[ "$canonical_base" == "$canonical_target"/backups ]]; then
+    if [[ "$canonical_base" == "$canonical_target"/.backup ]]; then
         ls -1d "${backup_base}"/*/ 2>/dev/null | sort -r | head -1
     fi
 }
@@ -414,6 +419,18 @@ cleanup_global() {
 
     # Restore settings.json from backup
     restore_settings "$target" "$backup_dir"
+
+    # Remove mcpServers from ~/.claude.json
+    if command -v jq &> /dev/null && [ -f "${HOME}/.claude.json" ]; then
+        if jq 'has("mcpServers")' "${HOME}/.claude.json" | grep -q true; then
+            local claude_backup="${backup_dir}/.claude.json"
+            cp "${HOME}/.claude.json" "$claude_backup"
+            jq 'del(.mcpServers)' "${HOME}/.claude.json" > "${HOME}/.claude.json.tmp"
+            mv "${HOME}/.claude.json.tmp" "${HOME}/.claude.json"
+            log_success "Removed mcpServers from ~/.claude.json (backup: $claude_backup)"
+            ((++BACKUPS))
+        fi
+    fi
 
     log_success "Global cleanup complete"
 }

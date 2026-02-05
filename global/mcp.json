@@ -1,0 +1,49 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server", "--context", "claude-code"],
+      "env": {}
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "env": {}
+    },
+    "deepwiki": {
+      "type": "http",
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--no-sandbox",
+        "--headless"
+      ]
+    },
+    "Parallel-Search": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://search-mcp.parallel.ai/mcp",
+        "--header",
+        "authorization: Bearer ${PARALLEL_API_KEY}"
+      ]
+    },
+    "Parallel-Task": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://task-mcp.parallel.ai/mcp",
+        "--header",
+        "authorization: Bearer ${PARALLEL_API_KEY}"
+      ]
+    }
+  }
+}
