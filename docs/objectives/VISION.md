@@ -19,6 +19,15 @@ SCZ transforms Claude Code into an autonomous software engineering orchestrator 
 - Learns from mistakes via reflexion
 - Persists knowledge across sessions
 
+## Technical Architecture Vision
+
+True multi-agent system with independent, observable agents coordinated through workflow orchestration. Strands Agents framework with L1 Workflow, L2 Graph, and L3 Swarm coordination. Subscription-based authentication via custom Claude SDK provider and CLI wrappers for other providers.
+
+**Architecture Pillars**:
+- **MCP**: Agent ↔ Tools/Resources (client-server)
+- **A2A**: Orchestrator ↔ Agent (task-based coordination)
+- **Strands Framework**: L1 Sequential/DAG, L2 Conditional routing, L3 Autonomous mesh
+
 ## Target Users
 
 Solo developers and small teams who want AI-assisted development with standardized processes and built-in validation.
